@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystic Mirror of Lilac Whispers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #1a052e, #311348); /* Deeper, more vibrant gradient */
+            font-family: 'Cormorant Garamond', serif;
+            overflow: hidden;
+        }
+
+        .mirror-frame {
+            position: relative;
+            padding: 30px; /* Increased padding */
+            background: linear-gradient(135deg, #9e82c2, #795396); /* Softer, more refined gradient */
+            border-radius: 20px; /* More rounded corners */
+            box-shadow: 0 0 60px rgba(200, 162, 200, 0.4); /* Softer, more diffused shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+        }
+
+        .mirror-frame:hover {
+            transform: scale(1.04); /* Subtler scale on hover */
+            box-shadow: 0 0 70px rgba(200, 162, 200, 0.5); /* Increased shadow on hover */
+        }
+
+        .mirror-glass {
+            position: relative;
+            width: 85vw; /* Slightly wider */
+            height: 65vh; /* Slightly taller */
+            max-width: 650px; /* Slightly wider max-width */
+            max-height: 450px; /* Slightly taller max-height */
+            background: rgba(255, 255, 255, 0.03); /* Even more transparent */
+            backdrop-filter: blur(12px); /* Slightly stronger blur */
+            border-radius: 15px; /* More rounded corners */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px; /* Increased padding */
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .mirror-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg,
+                transparent 45%,
+                rgba(255, 255, 255, 0.08) 50%, /* Slightly more visible mist */
+                transparent 55%);
+            animation: mist 10s infinite linear; /* Slower mist animation */
+        }
+
+        @keyframes mist {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        h1 {
+            color: #f8f0fb; /* Lighter text color */
+            text-shadow: 0 0 18px rgba(248, 240, 251, 0.4); /* Softer text shadow */
+            margin-bottom: 35px; /* Increased margin */
+            font-size: 3em; /* Slightly larger heading */
+            letter-spacing: 0.05em;
+        }
+
+        #prediction {
+            color: #ffffff; /* Brighter text color */
+            font-size: 1.3em; /* Slightly larger font */
+            line-height: 1.7; /* Improved line height */
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.6); /* More delicate text shadow */
+            opacity: 0;
+            animation: fadeIn 2.5s forwards; /* Slightly longer fade-in */
+            padding: 30px; /* Increased padding */
+            background: rgba(123, 85, 148, 0.15); /* Lighter background */
+            border-radius: 15px; /* More rounded corners */
+            max-width: 90%; /* Wider max-width */
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); } /* Increased distance */
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mirror-frame">
+        <div class="mirror-glass">
+            <h1>Lilac Oracle</h1>
+            <div id="prediction"></div>
+        </div>
+    </div>
+
+    <script>
+        const phrases = {
+            beginnings: [
+                "Beneath the twilight's tender sigh,",
+                "Where violet shadows learn to fly,",
+                "Through veils of time, the fates conspire,",
+                "Amidst the bloom of night's desire,",
+                "When silver stars begin to weep,",
+                "In realms where starlight fears to tread,"
+            ],
+            middles: [
+                "a whisper of petals shall guide your way,",
+                "the moon's soft tears will light your path,",
+                "distant echoes of forgotten dreams,",
+                "suspended moments in crystal streams,",
+                "the dance of shadows, soft and deep,",
+                "and ancient mysteries unfold,"
+            ],
+            endings: [
+                "to where the lilac winds forever play.",
+                "revealing truths the stars have kept.",
+                "unfolding paths the cosmos designed.",
+                "where secret destinies are intertwined.",
+                "in twilight's arms, your soul shall sleep.",
+                "as dawn unveils a hidden hope."
+            ]
+        };
+
+        function generatePrediction() {
+            const begin = phrases.beginnings[Math.floor(Math.random() * phrases.beginnings.length)];
+            const middle = phrases.middles[Math.floor(Math.random() * phrases.middles.length)];
+            const end = phrases.endings[Math.floor(Math.random() * phrases.endings.length)];
+            return `${begin}<br>${middle}<br>${end}`;
+        }
+
+        window.onload = function() {
+            const predictionElement = document.getElementById('prediction');
+            predictionElement.innerHTML = generatePrediction();
+        };
+    </script>
+</body>
+</html>

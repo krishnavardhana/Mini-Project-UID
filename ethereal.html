@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereal Guidance - Chronos Aethereum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        :root {
+            --primary-color: #d8b4fe;
+            --secondary-color: #f5f0fb;
+            --accent-color: #a37acc;
+            --dark-purple: #2a0f35;
+            --medium-purple: #967496;
+            --light-purple: #e6d3e6;
+        }
+
+        body {
+            background: linear-gradient(45deg, var(--dark-purple), #4a2840);
+            color: var(--light-purple);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin: 120px 0 40px 0;
+            font-size: 3em;
+            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 10px rgba(200, 162, 200, 0.4);
+        }
+
+        .service-details {
+            max-width: 80%;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 0 35px rgba(200, 162, 200, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-details:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(200, 162, 200, 0.4);
+        }
+
+        .service-details h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2.5em;
+            letter-spacing: 0.04em;
+            text-shadow: 2px 2px 8px rgba(200, 162, 200, 0.4);
+            text-align: center;
+        }
+
+        .service-details p {
+            margin-bottom: 2rem;
+            color: var(--light-purple);
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--medium-purple), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(26, 5, 44, 0.7);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 80%;
+            margin: 40px auto;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2em;
+            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 8px rgba(200, 162, 200, 0.4);
+        }
+
+        .section p {
+            margin: 1rem 0;
+            color: var(--light-purple);
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            background-color: rgba(26, 5, 44, 0.8);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            color: var(--light-purple);
+            margin: 0;
+            font-size: 0.95em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .service-details {
+                padding: 2rem;
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .service-details h2{
+                font-size: 2em;
+            }
+
+            .cta-button {
+                font-size: 1em;
+                padding: 1rem 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Ethereal Guidance</h1>
+    <div class="service-details">
+        <h2>Embark on a Journey of Self-Discovery</h2>
+        <p>
+            Our personalized ethereal guidance sessions are designed to help you navigate the currents of your destiny.  Our experienced guides connect with the deeper realms of existence to offer you insights and clarity for your path ahead.
+        </p>
+        <p>
+            During your session, you'll explore the following:
+        </p>
+        <ul>
+            <li><strong>Personalized Insights:</strong> Receive guidance tailored to your unique life journey and challenges.</li>
+            <li><strong>Clarity and Direction:</strong> Gain a clearer understanding of your purpose and the steps you can take to achieve your goals.</li>
+            <li><strong>Connection to Inner Wisdom:</strong> Learn to access your own intuition and inner knowing.</li>
+            <li><strong>Empowerment:</strong>  Feel empowered to make conscious choices and create a fulfilling future.</li>
+        </ul>
+        <p>
+            Whether you're seeking guidance on relationships, career, personal growth, or spiritual development, our ethereal guidance sessions provide a safe and supportive space for you to explore your innermost questions and receive profound wisdom.
+        </p>
+        <a href="contact.html" class="cta-button">Book a Session</a>
+    </div>
+
+    <div class="section">
+        <h2>What to Expect</h2>
+        <p>
+            A typical session involves a combination of intuitive reading, guided meditation, and open dialogue.  Your guide will create a sacred space for you to connect with your higher self and receive messages from the ethereal realm.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Meet Your Guides</h2>
+        <p>
+           Our team of experienced ethereal guides are dedicated to helping you on your journey.  They possess a unique blend of intuitive gifts, wisdom, and compassion, and are committed to providing you with the highest level of guidance and support.
+        </p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Chronos Aethereum. All rights reserved.</p>
+    </footer>
+</body>
+</html>

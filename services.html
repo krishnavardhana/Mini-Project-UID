@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Chronos Aethereum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        :root {
+            --primary-color: #d8b4fe;
+            --secondary-color: #f5f0fb;
+            --accent-color: #a37acc;
+            --dark-purple: #2a0f35;
+            --medium-purple: #967496;
+            --light-purple: #e6d3e6;
+        }
+
+        body {
+            background: linear-gradient(45deg, var(--dark-purple), #4a2840);
+            color: var(--light-purple);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background-color: rgba(26, 5, 44, 0.8);
+            padding: 20px 10%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            margin: 0 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+            text-shadow: 0 0 8px var(--accent-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin: 120px 0 40px 0;
+            font-size: 3em;
+            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 10px rgba(200, 162, 200, 0.4);
+        }
+
+        .service {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            margin: 20px auto;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 0 35px rgba(200, 162, 200, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 80%;
+        }
+
+        .service:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(200, 162, 200, 0.4);
+        }
+
+        .service h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2em;
+            letter-spacing: 0.03em;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .service p {
+            margin-bottom: 2rem;
+            color: var(--light-purple);
+            line-height: 1.8;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--medium-purple), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin: 4rem auto 2rem auto;
+            text-align: center;
+            font-size: 2.5em;
+            letter-spacing: 0.04em;
+            text-shadow: 2px 2px 8px rgba(200, 162, 200, 0.4);
+            max-width: 80%;
+        }
+
+        p {
+            margin: 1rem auto;
+            max-width: 80%;
+            text-align: center;
+            color: var(--light-purple);
+            line-height: 1.7;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .service {
+                padding: 2rem;
+                width: 95%;
+            }
+
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul li {
+                margin: 15px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .service h2 {
+                font-size: 1.8em;
+            }
+
+            .cta-button {
+                font-size: 1em;
+                padding: 1rem 1.5rem;
+            }
+            nav {
+                padding: 15px 5%;
+            }
+            h2 {
+                font-size: 2em;
+            }
+            p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <h1>Our Services</h1>
+
+    <div class="service">
+        <h2>Ethereal Guidance</h2>
+        <p>Embark on a journey of self-discovery with our personalized ethereal guidance sessions. Our experienced guides will help you navigate the currents of your destiny, offering insights and clarity for your path ahead.</p>
+        <a href="ethereal.html" class="cta-button">Seek Guidance</a>
+    </div>
+
+    <div class="service">
+        <h2>Temporal Weaving</h2>
+        <p>Delve into the art of temporal weaving, where we explore the intricate patterns of time. Discover how past echoes shape present realities and learn to influence the threads of your future.</p>
+        <a href="weaving.html" class="cta-button">Unravel Time</a>
+    </div>
+
+    <div class="service">
+        <h2>Astral Cartography</h2>
+        <p>Navigate the celestial realms with our astral cartography service. We provide detailed mappings of your cosmic blueprint, revealing hidden potentials and celestial influences that shape your journey.</p>
+        <a href="astral.html" class="cta-button">Explore the Cosmos</a>
+    </div>
+
+    <div class="service">
+        <h2>Resources</h2>
+        <p>Unlock hidden knowledge and expand your understanding with these carefully selected resources.</p>
+        <a href="books.html" class="cta-button">Celestial Maps </a>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+    <p>Q: What is the typical duration of a guidance session?</p>
+    <p>A: Our ethereal guidance sessions typically last between 60 to 90 minutes, allowing ample time for exploration and insight.</p>
+    <p>Q: How can temporal weaving benefit me?</p>
+    <p>A: Temporal weaving can help you understand recurring patterns in your life and empower you to make conscious choices for a more fulfilling future.</p>
+    <p>Q: What information is included in an astral chart?</p>
+    <p>A: Your astral chart provides insights into your personality traits, strengths, challenges, and significant life cycles based on your birth information.</p>
+</body>
+</html>

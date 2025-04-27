@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestial Horizon - Astrology & Moon Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Poiret+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e6e0ff;
+            --secondary-color: #d0bfff;
+            --accent-color: #b399ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(45deg, #2a1b3d, #44318d);
+            color: var(--primary-color);
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Poiret One', cursive;
+            font-size: 3.5rem;
+            letter-spacing: 0.5rem;
+            text-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .quote-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 30px rgba(230, 224, 255, 0.1);
+        }
+
+        .daily-quote {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .author {
+            text-align: right;
+            font-style: italic;
+            color: var(--secondary-color);
+        }
+
+        .moon-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .moon-phase {
+            font-size: 4rem;
+        }
+
+        .moon-details {
+            text-align: center;
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: 0.3;
+                box-shadow: 0 0 5px white;
+            }
+            to {
+                opacity: 1;
+                box-shadow: 0 0 20px white;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .moon-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Celestial Whispers</h1>
+        </header>
+
+        <div class="quote-container">
+            <p class="daily-quote">"As the stars dance in cosmic harmony, remember that even the smallest light shines in eternal darkness."</p>
+            <p class="author">- Luna Maris</p>
+        </div>
+
+        <div class="moon-container">
+            <div class="moon-phase">🌖</div>
+            <div class="moon-details">
+                <h2>Waning Gibbous</h2>
+                <p>Illumination: 72%</p>
+                <p>Virgo Season</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+                function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.animationDelay = `${Math.random() * 1.5}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function updateDailyContent() {
+            const quotes = [
+                {text: "The universe sings its wisdom through the silent dance of celestial bodies.", author: "Stella Noctis"},
+                {text: "In the moon's gentle glow, find your hidden strength and quiet power.", author: "Selene Artemis"},
+                {text: "As planets align, so too shall your path become clear in divine timing.", author: "Cosmo Vitalis"}
+            ];
+
+            const moonPhases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
+            const phaseNames = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous', 
+                              'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'];
+            
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            const phaseIndex = Math.floor(Math.random() * moonPhases.length);
+
+            document.querySelector('.daily-quote').textContent = randomQuote.text;
+            document.querySelector('.author').textContent = `- ${randomQuote.author}`;
+            document.querySelector('.moon-phase').textContent = moonPhases[phaseIndex];
+            document.querySelector('.moon-details h2').textContent = phaseNames[phaseIndex];
+        }
+
+        createStars();
+        setInterval(() => {
+            document.querySelectorAll('.star').forEach(star => {
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+            });
+        }, 10000);
+
+        updateDailyContent();
+        setInterval(updateDailyContent, 10000);
+    </script>
+</body>
+</html>

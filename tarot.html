@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Astrology and Tarot - Moon Loom</title>
+    <style>
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: radial-gradient(circle at center, #0b0c1a, #1a1a2e);
+            color: #e0d7f5;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: rgba(38, 38, 61, 0.9);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 0 20px #7c3aed;
+        }
+
+        h1, h2, h3 {
+            color: #d8b4fe;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 8px #9f7aea;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background: #9f7aea;
+            color: #1a1a2e;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #9f7aea;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover, button:focus {
+            background: #7c3aed;
+            color: #fff;
+            outline: none;
+        }
+
+        input, select {
+            font-size: 1rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: none;
+            box-shadow: inset 0 0 5px #7c3aed;
+            background: #3b2a6d;
+            color: #e0d7f5;
+            margin-top: 0.5rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        .tarot-cards {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tarot-card {
+            width: 100px;
+            height: 160px;
+            background: #5b4b8a;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #7c3aed;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #d8b4fe;
+            font-weight: 700;
+            user-select: none;
+            position: relative;
+        }
+
+        .tarot-card.drawn {
+            background: #9f7aea;
+            color: #1a1a2e;
+            cursor: default;
+        }
+
+        .result {
+            margin-top: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #5b4b8a;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #7c3aed;
+            text-align: center;
+        }
+
+        .compatibility-result {
+            margin-top: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #5b4b8a;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #7c3aed;
+            text-align: center;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <main class="container" role="main" aria-labelledby="page-title">
+        <h1 id="page-title">Astrology and Tarot</h1>
+
+        <section aria-labelledby="tarot-reading-title">
+            <h2 id="tarot-reading-title">Tarot Card Reading</h2>
+            <p>Click on a card to draw it. Draw up to 3 cards.</p>
+            <div class="tarot-cards" id="tarot-cards">
+                <!-- Cards will be generated here -->
+            </div>
+            <div class="result" id="tarot-result" aria-live="polite" aria-atomic="true"></div>
+            <button id="reset-tarot-btn">Reset Cards</button>
+        </section>
+
+        <section aria-labelledby="daily-tarot-title">
+            <h2 id="daily-tarot-title">Daily Tarot Pull</h2>
+            <button id="daily-tarot-btn">Get Today's Card</button>
+            <div class="result" id="daily-tarot-result" aria-live="polite" aria-atomic="true"></div>
+        </section>
+
+        <section aria-labelledby="birth-chart-title">
+            <h2 id="birth-chart-title">Astrology Birth Chart</h2>
+            <form id="birth-chart-form" novalidate>
+                <label for="birth-date">Birth Date</label>
+                <input type="date" id="birth-date" required aria-required="true" />
+                <label for="birth-time">Birth Time</label>
+                <input type="time" id="birth-time" required aria-required="true" />
+                <button type="submit">Generate Chart</button>
+            </form>
+            <div class="result" id="birth-chart-result" aria-live="polite" aria-atomic="true"></div>
+        </section>
+
+        <section aria-labelledby="compatibility-title">
+            <h2 id="compatibility-title">Astrology Compatibility</h2>
+            <form id="compatibility-form" novalidate>
+                <label for="sign1">Your Zodiac Sign</label>
+                <select id="sign1" required aria-required="true">
+                    <option value="" disabled selected>Select your sign</option>
+                    <option value="aries">Aries</option>
+                    <option value="taurus">Taurus</option>
+                    <option value="gemini">Gemini</option>
+                    <option value="cancer">Cancer</option>
+                    <option value="leo">Leo</option>
+                    <option value="virgo">Virgo</option>
+                    <option value="libra">Libra</option>
+                    <option value="scorpio">Scorpio</option>
+                    <option value="sagittarius">Sagittarius</option>
+                    <option value="capricorn">Capricorn</option>
+                    <option value="aquarius">Aquarius</option>
+                    <option value="pisces">Pisces</option>
+                </select>
+                <label for="sign2">Partner's Zodiac Sign</label>
+                <select id="sign2" required aria-required="true">
+                    <option value="" disabled selected>Select partner's sign</option>
+                    <option value="aries">Aries</option>
+                    <option value="taurus">Taurus</option>
+                    <option value="gemini">Gemini</option>
+                    <option value="cancer">Cancer</option>
+                    <option value="leo">Leo</option>
+                    <option value="virgo">Virgo</option>
+                    <option value="libra">Libra</option>
+                    <option value="scorpio">Scorpio</option>
+                    <option value="sagittarius">Sagittarius</option>
+                    <option value="capricorn">Capricorn</option>
+                    <option value="aquarius">Aquarius</option>
+                    <option value="pisces">Pisces</option>
+                </select>
+                <button type="submit">Check Compatibility</button>
+            </form>
+            <div class="compatibility-result" id="compatibility-result" aria-live="polite" aria-atomic="true"></div>
+        </section>
+    </main>
+
+    <script>
+        (() => {
+            // Tarot cards data
+            const tarotDeck = [
+                { name: "The Fool", meaning: "New beginnings, optimism, trust in life" },
+                { name: "The Magician", meaning: "Action, the power to manifest" },
+                { name: "The High Priestess", meaning: "Inaction, going within, the subconscious" },
+                { name: "The Empress", meaning: "Abundance, nurturing, fertility, life in bloom!" },
+                { name: "The Emperor", meaning: "Structure, stability, rules and power" },
+                { name: "The Hierophant", meaning: "Institutions, tradition, society and its rules" },
+                { name: "The Lovers", meaning: "Sexuality, passion, choice, uniting" },
+                { name: "The Chariot", meaning: "Movement, progress, integration" },
+                { name: "Strength", meaning: "Courage, subtle power, integration of animal self" },
+                { name: "The Hermit", meaning: "Meditation, solitude, consciousness" },
+                { name: "Wheel of Fortune", meaning: "Cycles, change, ups and downs" },
+                { name: "Justice", meaning: "Fairness, equality, balance" },
+                { name: "The Hanged Man", meaning: "Surrender, new perspective, enlightenment" },
+                { name: "Death", meaning: "The end of something, change, the impermeability of all things" },
+                { name: "Temperance", meaning: "Balance, moderation, being sensible" },
+                { name: "The Devil", meaning: "Destructive patterns, addiction, giving away your power" },
+                { name: "The Tower", meaning: "Collapse of stable structures, release, sudden insight" },
+                { name: "The Star", meaning: "Hope, calm, a good omen!" },
+                { name: "The Moon", meaning: "Mystery, the subconscious, dreams" },
+                { name: "The Sun", meaning: "Success, happiness, all will be well" },
+                { name: "Judgement", meaning: "Rebirth, a new phase, inner calling" },
+                { name: "The World", meaning: "Completion, wholeness, attainment, celebration of life" }
+            ];
+
+            const tarotCardsContainer = document.getElementById('tarot-cards');
+            const tarotResult = document.getElementById('tarot-result');
+            const resetTarotBtn = document.getElementById('reset-tarot-btn');
+
+            let drawnCards = [];
+
+            // Create tarot card elements
+            tarotDeck.forEach((card, index) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.classList.add('tarot-card');
+                cardDiv.textContent = "Card";
+                cardDiv.setAttribute('tabindex', '0');
+                cardDiv.setAttribute('role', 'button');
+                cardDiv.setAttribute('aria-pressed', 'false');
+                cardDiv.setAttribute('aria-label', `Tarot card ${card.name}`);
+                cardDiv.dataset.index = index;
+                tarotCardsContainer.appendChild(cardDiv);
+            });
+
+            // Handle card click
+            tarotCardsContainer.addEventListener('click', (e) => {
+                const cardDiv = e.target.closest('.tarot-card');
+                if (!cardDiv) return;
+                const index = parseInt(cardDiv.dataset.index, 10);
+                if (drawnCards.includes(index)) return; // already drawn
+                if (drawnCards.length >= 3) return; // max 3 cards
+
+                drawnCards.push(index);
+                cardDiv.classList.add('drawn');
+                cardDiv.setAttribute('aria-pressed', 'true');
+
+                updateTarotResult();
+            });
+
+            // Keyboard accessibility for cards
+            tarotCardsContainer.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.target.click();
+                }
+            });
+
+            // Update tarot result display
+            function updateTarotResult() {
+                if (drawnCards.length === 0) {
+                    tarotResult.textContent = "No cards drawn yet.";
+                    return;
+                }
+                let resultText = "You have drawn:\n";
+                drawnCards.forEach(i => {
+                    const card = tarotDeck[i];
+                    resultText += `${card.name}: ${card.meaning}\n`;
+                });
+                tarotResult.textContent = resultText;
+            }
+
+            // Reset tarot cards
+            resetTarotBtn.addEventListener('click', () => {
+                drawnCards = [];
+                tarotResult.textContent = "";
+                document.querySelectorAll('.tarot-card.drawn').forEach(card => {
+                    card.classList.remove('drawn');
+                    card.setAttribute('aria-pressed', 'false');
+                });
+            });
+
+            // Daily tarot pull
+            const dailyTarotBtn = document.getElementById('daily-tarot-btn');
+            const dailyTarotResult = document.getElementById('daily-tarot-result');
+
+            dailyTarotBtn.addEventListener('click', () => {
+                const today = new Date().toDateString();
+                const seed = [...today].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                const cardIndex = seed % tarotDeck.length;
+                const card = tarotDeck[cardIndex];
+                dailyTarotResult.textContent = `Today's card is "${card.name}": ${card.meaning}`;
+            });
+
+            // Astrology birth chart (simplified)
+            const birthChartForm = document.getElementById('birth-chart-form');
+            const birthChartResult = document.getElementById('birth-chart-result');
+
+            birthChartForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const birthDate = document.getElementById('birth-date').value;
+                const birthTime = document.getElementById('birth-time').value;
+                if (!birthDate || !birthTime) {
+                    birthChartResult.textContent = "Please enter both birth date and time.";
+                    return;
+                }
+                // Simplified: just display the sun sign based on birth date
+                const sunSign = getSunSign(new Date(birthDate));
+                birthChartResult.textContent = `Your sun sign is ${sunSign}. (Detailed birth chart generation is not implemented.)`;
+            });
+
+            function getSunSign(date) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "Aquarius";
+                if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "Pisces";
+                if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "Aries";
+                if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "Taurus";
+                if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "Gemini";
+                if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "Cancer";
+                if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "Leo";
+                if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "Virgo";
+                if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "Libra";
+                if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "Scorpio";
+                if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "Sagittarius";
+                if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) return "Capricorn";
+                return "Unknown";
+            }
+
+            // Astrology compatibility
+            const compatibilityForm = document.getElementById('compatibility-form');
+            const compatibilityResult = document.getElementById('compatibility-result');
+
+            const compatibilityMatrix = {
+                aries: { aries: "High", taurus: "Medium", gemini: "High", cancer: "Low", leo: "High", virgo: "Medium", libra: "Low", scorpio: "Medium", sagittarius: "High", capricorn: "Low", aquarius: "High", pisces: "Medium" },
+                taurus: { aries: "Medium", taurus: "High", gemini: "Low", cancer: "High", leo: "Medium", virgo: "High", libra: "Medium", scorpio: "Low", sagittarius: "Medium", capricorn: "High", aquarius: "Low", pisces: "High" },
+                gemini: { aries: "High", taurus: "Low", gemini: "High", cancer: "Medium", leo: "High", virgo: "Low", libra: "High", scorpio: "Medium", sagittarius: "High", capricorn: "Low", aquarius: "High", pisces: "Medium" },
+                cancer: { aries: "Low", taurus: "High", gemini: "Medium", cancer: "High", leo: "Medium", virgo: "High", libra: "Low", scorpio: "High", sagittarius: "Medium", capricorn: "High", aquarius: "Low", pisces: "High" },
+                leo: { aries: "High", taurus: "Medium", gemini: "High", cancer: "Medium", leo: "High", virgo: "Low", libra: "High", scorpio: "Medium", sagittarius: "High", capricorn: "Low", aquarius: "High", pisces: "Medium" },
+                virgo: { aries: "Medium", taurus: "High", gemini: "Low", cancer: "High", leo: "Low", virgo: "High", libra: "Medium", scorpio: "High", sagittarius: "Medium", capricorn: "High", aquarius: "Low", pisces: "High" },
+                libra: { aries: "Low", taurus: "Medium", gemini: "High", cancer: "Low", leo: "High", virgo: "Medium", libra: "High", scorpio: "Low", sagittarius: "High", capricorn: "Medium", aquarius: "High", pisces: "Low" },
+                scorpio: { aries: "Medium", taurus: "Low", gemini: "Medium", cancer: "High", leo: "Medium", virgo: "High", libra: "Low", scorpio: "High", sagittarius: "Medium", capricorn: "High", aquarius: "Low", pisces: "High" },
+                sagittarius: { aries: "High", taurus: "Medium", gemini: "High", cancer: "Medium", leo: "High", virgo: "Medium", libra: "High", scorpio: "Medium", sagittarius: "High", capricorn: "Low", aquarius: "High", pisces: "Medium" },
+                capricorn: { aries: "Low", taurus: "High", gemini: "Low", cancer: "High", leo: "Low", virgo: "High", libra: "Medium", scorpio: "High", sagittarius: "Low", capricorn: "High", aquarius: "Medium", pisces: "High" },
+                aquarius: { aries: "High", taurus: "Low", gemini: "High", cancer: "Low", leo: "High", virgo: "Low", libra: "High", scorpio: "Low", sagittarius: "High", capricorn: "Medium", aquarius: "High", pisces: "Medium" },
+                pisces: { aries: "Medium", taurus: "High", gemini: "Medium", cancer: "High", leo: "Medium", virgo: "High", libra: "Low", scorpio: "High", sagittarius: "Medium", capricorn: "High", aquarius: "Medium", pisces: "High" }
+            };
+
+            compatibilityForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const sign1 = document.getElementById('sign1').value;
+                const sign2 = document.getElementById('sign2').value;
+                if (!sign1 || !sign2) {
+                    compatibilityResult.textContent = "Please select both zodiac signs.";
+                    return;
+                }
+                const compatibility = compatibilityMatrix[sign1][sign2] || "Unknown";
+                compatibilityResult.textContent = `Compatibility between ${capitalize(sign1)} and ${capitalize(sign2)}: ${compatibility}`;
+            });
+
+            function capitalize(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            }
+        })();
+    </script>
+</body>
+</html>

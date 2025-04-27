@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seraphic Odyssey</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background : linear-gradient(45deg, #2a0f35, #4a2840);
+            background-size: cover;
+            background-position: center;
+            font-family: 'Cinzel', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding: 2rem;
+            justify-content: center;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .map-button {
+            display: block;
+            width: 180px;
+            height: 120px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            text-align: center;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 120px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            background-size: cover;
+            background-position: center;
+            text-decoration: none;
+        }
+
+        .map-button::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.5rem 0;
+            background: rgba(0, 0, 0, 0.5);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: none;
+            line-height: normal;
+        }
+
+        .map-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+        }
+
+        .map-button:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .button-container {
+                flex-direction: column;
+                width: 90%;
+            }
+            
+            .map-button {
+                width: 100%;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container" role="main" aria-label="Navigation buttons">
+        <a href="horoscope.html" class="map-button" data-label="Horoscope" style="background-image: url('p.jpg');"></a>
+        <a href="enchantedlibrary.html" class="map-button" data-label="Enchanted Library" style="background-image: url('b.jpg');"></a>
+        <a href="mysticalquotes.html" class="map-button" data-label="Mystical Quotes" style="background-image: url('q.jpg');"></a>
+        <a href="magicalrecipes.html" class="map-button" data-label="Magical Recipes" style="background-image: url('r.jpg');"></a>
+        <a href="moontracker.html" class="map-button" data-label="Moon Tracker" style="background-image: url('m.jpg');"></a>
+        <a href="tarot.html" class="map-button" data-label="Tarot Reding" style="background-image: url('t.jpg');"></a>
+    </div>
+</body>
+</html>

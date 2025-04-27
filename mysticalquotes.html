@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mystical Quotes - Moon Loom</title>
+    <style>
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e, #3b2a6d);
+            color: #e0d7f5;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: rgba(58, 24, 97, 0.9);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 0 20px #7c3aed;
+        }
+
+        h1, h2, h3 {
+            color: #d8b4fe;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 8px #9f7aea;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        #random-quote {
+            font-style: italic;
+            font-size: 1.25rem;
+            margin: 1rem auto;
+            max-width: 700px;
+            padding: 1rem;
+            background: #5b4b8a;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #7c3aed;
+            text-align: center;
+        }
+
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+            font-family: inherit;
+            box-shadow: inset 0 0 5px #7c3aed;
+            background: #3b2a6d;
+            color: #e0d7f5;
+            resize: vertical;
+        }
+
+        button {
+            background: #9f7aea;
+            color: #1a1a2e;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #9f7aea;
+            transition: background-color 0.3s ease;
+            align-self: flex-start;
+        }
+
+        button:hover, button:focus {
+            background: #7c3aed;
+            color: #fff;
+            outline: none;
+        }
+
+        #quotes-list {
+            max-width: 700px;
+            margin: 0 auto;
+            list-style: none;
+            padding: 0;
+        }
+
+        #quotes-list li {
+            background: #5b4b8a;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #7c3aed;
+            word-wrap: break-word;
+        }
+
+        #category-filter {
+            max-width: 700px;
+            margin: 0 auto 1rem auto;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        #category-filter select {
+            max-width: 200px;
+        }
+
+        #quote-generator {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #generated-quote {
+            margin-top: 1rem;
+            font-style: italic;
+            background: #5b4b8a;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #7c3aed;
+            min-height: 80px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main class="container" role="main" aria-labelledby="page-title">
+        <h1 id="page-title">Mystical Quotes</h1>
+
+        <section aria-labelledby="random-quote-title">
+            <h2 id="random-quote-title">Random Mystical Quote</h2>
+            <div id="random-quote" aria-live="polite" aria-atomic="true"></div>
+        </section>
+
+        <section aria-labelledby="submit-quote-title">
+            <h2 id="submit-quote-title">Submit Your Favorite Quote</h2>
+            <form id="submit-quote-form" novalidate>
+                <label for="quote-text">Quote</label>
+                <textarea id="quote-text" rows="3" placeholder="Enter your mystical or magical quote" required aria-required="true"></textarea>
+
+                <label for="quote-author">Author (optional)</label>
+                <input type="text" id="quote-author" placeholder="Author's name" />
+
+                <label for="quote-category">Category</label>
+                <select id="quote-category" required aria-required="true">
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Moon">Moon</option>
+                    <option value="Stars">Stars</option>
+                    <option value="Love">Love</option>
+                    <option value="Wisdom">Wisdom</option>
+                    <option value="Magic">Magic</option>
+                    <option value="Dreams">Dreams</option>
+                    <option value="Universe">Universe</option>
+                </select>
+
+                <button type="submit">Add Quote</button>
+            </form>
+        </section>
+
+        <section aria-labelledby="category-filter-title">
+            <h2 id="category-filter-title">Filter Quotes by Category</h2>
+            <div id="category-filter">
+                <select id="filter-category-select" aria-label="Filter quotes by category">
+                    <option value="All" selected>All</option>
+                    <option value="Moon">Moon</option>
+                    <option value="Stars">Stars</option>
+                    <option value="Love">Love</option>
+                    <option value="Wisdom">Wisdom</option>
+                    <option value="Magic">Magic</option>
+                    <option value="Dreams">Dreams</option>
+                    <option value="Universe">Universe</option>
+                </select>
+            </div>
+            <ul id="quotes-list" aria-live="polite" aria-atomic="true" tabindex="0">
+                <!-- Quotes will be listed here -->
+            </ul>
+        </section>
+
+        <section aria-labelledby="quote-generator-title">
+            <h2 id="quote-generator-title">Personalized Quote Generator</h2>
+            <form id="quote-generator-form" novalidate>
+                <label for="mood-select">Select Your Mood</label>
+                <select id="mood-select" required aria-required="true">
+                    <option value="" disabled selected>Select your mood</option>
+                    <option value="Happy">Happy</option>
+                    <option value="Reflective">Reflective</option>
+                    <option value="Dreamy">Dreamy</option>
+                    <option value="Inspired">Inspired</option>
+                    <option value="Curious">Curious</option>
+                </select>
+
+                <label for="zodiac-select">Select Your Zodiac Sign</label>
+                <select id="zodiac-select" required aria-required="true">
+                    <option value="" disabled selected>Select your zodiac sign</option>
+                    <option value="Aries">Aries ♈</option>
+                    <option value="Taurus">Taurus ♉</option>
+                    <option value="Gemini">Gemini ♊</option>
+                    <option value="Cancer">Cancer ♋</option>
+                    <option value="Leo">Leo ♌</option>
+                    <option value="Virgo">Virgo ♍</option>
+                    <option value="Libra">Libra ♎</option>
+                    <option value="Scorpio">Scorpio ♏</option>
+                    <option value="Sagittarius">Sagittarius ♐</option>
+                    <option value="Capricorn">Capricorn ♑</option>
+                    <option value="Aquarius">Aquarius ♒</option>
+                    <option value="Pisces">Pisces ♓</option>
+                </select>
+
+                <button type="submit">Generate Quote</button>
+            </form>
+            <div id="generated-quote" aria-live="polite" aria-atomic="true"></div>
+        </section>
+    </main>
+
+    <script>
+        (() => {
+            // Initial quotes collection
+            const initialQuotes = [
+                { text: "Magic is believing in yourself, if you can do that, you can make anything happen.", author: "Johann Wolfgang von Goethe", category: "Magic" },
+                { text: "The moon is a loyal companion.", author: "Tahereh Mafi", category: "Moon" },
+                { text: "We are all made of stardust.", author: "", category: "Stars" },
+                { text: "Love is the bridge between you and everything.", author: "Rumi", category: "Love" },
+                { text: "Wisdom begins in wonder.", author: "Socrates", category: "Wisdom" },
+                { text: "Dreams are the whispers of the soul.", author: "", category: "Dreams" },
+                { text: "The universe is full of magical things patiently waiting for our wits to grow sharper.", author: "Eden Phillpotts", category: "Universe" },
+                { text: "Shoot for the moon. Even if you miss, you'll land among the stars.", author: "Les Brown", category: "Moon" }
+            ];
+
+            // Load quotes from localStorage or use initial
+            let quotes = JSON.parse(localStorage.getItem('mysticalQuotes')) || initialQuotes;
+
+            const randomQuoteDiv = document.getElementById('random-quote');
+            const quotesList = document.getElementById('quotes-list');
+            const filterCategorySelect = document.getElementById('filter-category-select');
+            const submitQuoteForm = document.getElementById('submit-quote-form');
+            const quoteTextInput = document.getElementById('quote-text');
+            const quoteAuthorInput = document.getElementById('quote-author');
+            const quoteCategorySelect = document.getElementById('quote-category');
+            const quoteGeneratorForm = document.getElementById('quote-generator-form');
+            const moodSelect = document.getElementById('mood-select');
+            const zodiacSelect = document.getElementById('zodiac-select');
+            const generatedQuoteDiv = document.getElementById('generated-quote');
+
+            // Display a random quote on page load
+            function displayRandomQuote() {
+                if (quotes.length === 0) {
+                    randomQuoteDiv.textContent = "No quotes available.";
+                    return;
+                }
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const quote = quotes[randomIndex];
+                randomQuoteDiv.textContent = `"${quote.text}"${quote.author ? " — " + quote.author : ""}`;
+            }
+
+            // Render quotes list filtered by category
+            function renderQuotesList(category = "All") {
+                quotesList.innerHTML = '';
+                const filteredQuotes = category === "All" ? quotes : quotes.filter(q => q.category === category);
+                if (filteredQuotes.length === 0) {
+                    quotesList.innerHTML = '<li>No quotes found for this category.</li>';
+                    return;
+                }
+                filteredQuotes.forEach(q => {
+                    const li = document.createElement('li');
+                    li.textContent = `"${q.text}"${q.author ? " — " + q.author : ""}`;
+                    quotesList.appendChild(li);
+                });
+            }
+
+            // Save quotes to localStorage
+            function saveQuotes() {
+                localStorage.setItem('mysticalQuotes', JSON.stringify(quotes));
+            }
+
+            // Handle new quote submission
+            submitQuoteForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const text = quoteTextInput.value.trim();
+                const author = quoteAuthorInput.value.trim();
+                const category = quoteCategorySelect.value;
+                if (!text || !category) return;
+                quotes.push({ text, author, category });
+                saveQuotes();
+                renderQuotesList(filterCategorySelect.value);
+                submitQuoteForm.reset();
+                alert('Quote added successfully!');
+            });
+
+            // Handle category filter change
+            filterCategorySelect.addEventListener('change', () => {
+                renderQuotesList(filterCategorySelect.value);
+            });
+
+            // Quote generator logic based on mood and zodiac sign
+            const moodQuotes = {
+                Happy: [
+                    "Happiness is the secret to all beauty.",
+                    "Joy is the simplest form of gratitude.",
+                    "Let your smile change the world."
+                ],
+                Reflective: [
+                    "Reflection is the lamp of the heart.",
+                    "In stillness, wisdom is found.",
+                    "Look within to find your truth."
+                ],
+                Dreamy: [
+                    "Dreams are the touchstones of our character.",
+                    "Let your dreams be your wings.",
+                    "The future belongs to those who believe in the beauty of their dreams."
+                ],
+                Inspired: [
+                    "Inspiration exists, but it has to find you working.",
+                    "Create the life you imagine.",
+                    "Magic happens when you believe."
+                ],
+                Curious: [
+                    "Curiosity is the wick in the candle of learning.",
+                    "Seek and you shall find.",
+                    "The universe is full of answers waiting to be discovered."
+                ]
+            };
+
+            const zodiacQuotes = {
+                Aries: "Boldness is your strength; let it guide your path.",
+                Taurus: "Steadfast and grounded, your roots run deep.",
+                Gemini: "Your dual nature brings endless possibilities.",
+                Cancer: "Embrace your intuition and nurture your soul.",
+                Leo: "Shine bright and lead with your heart.",
+                Virgo: "Perfection is in your details and care.",
+                Libra: "Balance and harmony are your guiding stars.",
+                Scorpio: "Passion fuels your transformative power.",
+                Sagittarius: "Adventure awaits; explore with an open mind.",
+                Capricorn: "Discipline and ambition pave your way.",
+                Aquarius: "Innovate and inspire the world around you.",
+                Pisces: "Dream deeply and connect with your emotions."
+            };
+
+            // Handle quote generation form submission
+            quoteGeneratorForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const mood = moodSelect.value;
+                const zodiac = zodiacSelect.value;
+                if (!mood || !zodiac) return;
+
+                const moodQuoteList = moodQuotes[mood] || [];
+                const zodiacQuote = zodiacQuotes[zodiac] || "";
+
+                let generatedText = "";
+                if (moodQuoteList.length > 0) {
+                    const randomMoodQuote = moodQuoteList[Math.floor(Math.random() * moodQuoteList.length)];
+                    generatedText = `"${randomMoodQuote}"`;
+                }
+                if (zodiacQuote) {
+                    generatedText += `\n— ${zodiacQuote}`;
+                }
+
+                generatedQuoteDiv.textContent = generatedText;
+            });
+
+            // Initialize page
+            displayRandomQuote();
+            renderQuotesList();
+
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Magical Diary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #f0f2ff, #e0f7fa); /* Lighter, softer gradient */
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px; /* Slightly wider container */
+            margin: 70px auto; /* Increased top margin */
+            background: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+            border-radius: 25px; /* More rounded corners */
+            padding: 40px; /* Increased padding */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Pacifico', cursive;
+            color: #6a1b9a; /* A deeper, more magical purple */
+            font-size: 3.5em; /* Slightly larger heading */
+            margin-bottom: 30px; /* Increased margin */
+            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.8);
+        }
+
+        .diary-entry {
+            background: rgba(255, 255, 255, 0.8); /* Added a background to the input area */
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .diary-entry textarea {
+            width: 100%;
+            height: 150px; /* Increased height */
+            border-radius: 12px;
+            border: 1px solid #d1c4e9; /* Lighter border */
+            padding: 15px;
+            font-size: 1.1rem; /* Slightly larger font */
+            resize: vertical;
+            box-shadow: none; /* Removed inner shadow */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+            background-color: transparent;
+            color: #555;
+        }
+
+        .diary-entry textarea:focus {
+            outline: none;
+            border-color: #9c27b0; /* A more vibrant purple on focus */
+            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.2); /* Added shadow on focus */
+        }
+
+        #imageInput {
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 25px; /* Increased margin */
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #a7f9a7 0%, #74d8ef 100%); /* Softer gradient */
+            border: none;
+            border-radius: 30px; /* Fully rounded corners */
+            color: white;
+            font-size: 1.2rem; /* Slightly larger font */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(100, 149, 237, 0.3); /* Slightly more pronounced shadow */
+        }
+
+        button:hover {
+            transform: translateY(-4px) scale(1.06); /* Increased scale and lift */
+            box-shadow: 0 8px 25px rgba(100, 149, 237, 0.4); /* Increased shadow */
+        }
+
+        button:active{
+           transform: translateY(0) scale(1);
+           box-shadow: 0 2px 5px rgba(100, 149, 237, 0.4);
+        }
+
+        .entry {
+            background: rgba(255, 255, 255, 0.9); /* Slightly more opaque entry background */
+            border-left: 5px solid #9c27b0; /* A more vibrant purple border */
+            padding: 20px; /* Increased padding */
+            margin-top: 25px; /* Increased margin */
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Slightly stronger shadow */
+            animation: slideIn 0.6s ease;
+            transition: all 0.3s ease;
+        }
+
+        .entry:hover{
+           transform: translateY(-2px);
+           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .entry h3{
+            color: #9c27b0;
+            margin-bottom: 5px;
+            font-size: 1.5em;
+            font-family: 'Pacifico', cursive;
+        }
+
+        .entry p {
+            color: #555;
+            line-height: 1.8; /* Improved line height */
+            font-size: 1.1em;
+        }
+
+        .entry img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px; /* Increased margin */
+            max-height: 350px; /* Increased max height */
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .entry img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-btn, .delete-btn {
+            display: inline-flex; /* Changed to inline-flex */
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px; /* Increased margin */
+            margin-right: 20px; /* Increased margin */
+            color: #9c27b0; /* A more vibrant purple */
+            cursor: pointer;
+            font-weight: 600; /* Medium font weight */
+            transition: color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+            padding: 8px 15px;
+            border-radius: 25px;
+            border: 1px solid transparent;
+        }
+
+        .edit-btn:hover, .delete-btn:hover {
+            color: #7b1fa2; /* A darker purple on hover */
+            text-decoration: none;
+            transform: scale(1.1);
+            background-color: rgba(156, 39, 176, 0.1);
+            border-color: rgba(156, 39, 176, 0.1);
+        }
+
+        .edit-btn i, .delete-btn i{
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); } /* Increased distance */
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); } /* Increased distance */
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MOON LOOM</h1>
+        <div class="diary-entry">
+            <textarea id="diaryText" placeholder="Start writing your thoughts..."></textarea>
+            <input type="file" id="imageInput" accept="image/*">
+            <button id="addEntryBtn">Add Entry</button>
+        </div>
+        <div id="entriesContainer"></div>
+    </div>
+
+    <script>
+        const addEntryBtn = document.getElementById('addEntryBtn');
+        const entriesContainer = document.getElementById('entriesContainer');
+
+        addEntryBtn.addEventListener('click', () => {
+            const text = document.getElementById('diaryText').value.trim();
+            const imageFile = document.getElementById('imageInput').files[0];
+
+            if (!text) {
+                alert("Please write something before adding.");
+                return;
+            }
+
+            const entry = document.createElement('div');
+            entry.className = 'entry';
+
+            const title = document.createElement('h3');
+            title.textContent = "Magical Moment";
+            entry.appendChild(title);
+
+            const paragraph = document.createElement('p');
+            paragraph.textContent = text;
+            entry.appendChild(paragraph);
+
+            if (imageFile) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(imageFile);
+                entry.appendChild(img);
+            }
+
+            const editBtn = document.createElement('span');
+            editBtn.className = 'edit-btn';
+            editBtn.innerHTML = `<i data-lucide="edit-2"></i> Edit`;
+            editBtn.onclick = () => {
+                const updatedText = prompt("Edit your diary entry:", paragraph.textContent);
+                if (updatedText !== null) {
+                    paragraph.textContent = updatedText;
+                }
+            };
+
+            const editImageBtn = document.createElement('span');
+            editImageBtn.className = 'edit-btn';
+            editImageBtn.innerHTML = `<i data-lucide="image"></i> Edit Image`;
+            editImageBtn.onclick = () => {
+                const newImageFile = document.createElement('input');
+                newImageFile.type = 'file';
+                newImageFile.accept = 'image/*';
+                newImageFile.onchange = () => {
+                    const newImg = document.createElement('img');
+                    newImg.src = URL.createObjectURL(newImageFile.files[0]);
+                    if(entry.querySelector('img')){
+                       entry.replaceChild(newImg, entry.querySelector('img'));
+                     }
+                     else{
+                        entry.appendChild(newImg);
+                     }
+                };
+                newImageFile.click();
+            };
+
+            const deleteBtn = document.createElement('span');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.innerHTML = `<i data-lucide="trash-2"></i> Delete`;
+            deleteBtn.onclick = () => {
+                entry.classList.add('fade-out');
+                setTimeout(() => entry.remove(), 300);
+            };
+
+            entry.appendChild(editBtn);
+            entry.appendChild(editImageBtn);
+            entry.appendChild(deleteBtn);
+            entriesContainer.prepend(entry);
+
+            document.getElementById('diaryText').value = '';
+            document.getElementById('imageInput').value = '';
+
+             lucide.createIcons();
+        });
+    </script>
+    <script src="https://unpkg.com/lucide-react@latest/umd/lucide-react.min.js"></script>
+</body>
+</html>

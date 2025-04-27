@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lilac Vault of Secrets</title>
+    <style>
+        :root {
+            --primary-lilac: #c8a2c8;
+            --accent-lilac: #e6d3e6;
+            --dark-lilac: #967496;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #2a0f35, #4a2840);
+            font-family: 'Georgia', serif;
+            color: var(--accent-lilac);
+            min-height: 100vh;
+        }
+
+        .vault-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .secret-card {
+            position: relative;
+            aspect-ratio: 1;
+            perspective: 1000px;
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(200, 162, 200, 0.3);
+        }
+
+        .secret-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .secret-card:hover .secret-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card-front {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-back {
+            background: rgba(22, 5, 29, 0.95);
+            transform: rotateY(180deg);
+            text-align: center;
+            line-height: 1.6;
+            font-size: 1.1em;
+            border: 2px solid var(--primary-lilac);
+        }
+
+        .poetic-text {
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 10px var(--primary-lilac);
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 3em;
+            color: var(--primary-lilac);
+            margin-bottom: 40px;
+        }
+
+        .moon-text { background-image: url('1.jpg'); }
+        .fairy-text { background-image: url('2.jpg'); }
+        .flower-text { background-image: url('3.jpg'); }
+        .star-text { background-image: url('4.jpg'); }
+        .forest-text { background-image: url('5.jpg'); }
+        .night-text { background-image: url('6.jpg'); }
+        .muse-text { background-image: url('7.jpg'); }
+        .aesthete-text{ background-image: url('8.jpg'); }
+
+    </style>
+</head>
+<body>
+    <h1>The Violet Whisper Vault</h1>
+    
+    <div class="vault-grid">
+        <div class="secret-card">
+            <div class="secret-card-inner">
+                <div class="card-front moon-text"></div>
+                <div class="card-back">
+                    <p class="poetic-text">"The moon keeps her silver promises in a lilac jar, whispering tides to lovers beneath star-shivered skies."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="secret-card">
+            <div class="secret-card-inner">
+                <div class="card-front fairy-text"></div>
+                <div class="card-back">
+                    <p class="poetic-text">"Fairy dust is just starlight that forgot to fall, caught in spiderweb hammocks between twilight hours."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="secret-card">
+            <div class="secret-card-inner">
+                <div class="card-front flower-text"></div>
+                <div class="card-back">
+                    <p class="poetic-text">"Petals hold the memory of every moon that ever kissed them, blooming in ultraviolet secrets bees can read."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="secret-card">
+            <div class="secret-card-inner">
+                <div class="card-front star-text"></div>
+                <div class="card-back">
+                    <p class="poetic-text">"Stars are night's punctuation marks - silver commas in the endless sentence of the cosmos."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="secret-card">
+            <div class="secret-card-inner">
+                <div class="card-front forest-text"></div>
+                <div class="card-back">
+                    <p class="poetic-text">"Ancient trees write their memoirs in rings of shadow and amber sap, in languages only owls understand."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="secret-card">
+            <div class="secret-card-inner">
+                <div class="card-front night-text"></div>
+                <div class="card-back">
+                    <p class="poetic-text">"Midnight collects lost sunbeams in violet jars, brewing dawn from stolen light and moth-wing wishes."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="secret-card">
+            <div class="secret-card-inner">
+                <div class="card-front muse-text"></div>
+                <div class="card-back">
+                    <p class="poetic-text">"The sky wears thunder like jewelry — heavy with memory, etched in silver and stormlight."</p>
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="secret-card">
+            <div class="secret-card-inner">
+                <div class="card-front aesthete-text"></div>
+                <div class="card-back">
+                    <p class="poetic-text">"Moss writes hymns on bark in soft green script, a quiet gospel of shade and shelter."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.secret-card').forEach(card => {
+            card.addEventListener('touchstart', function(e) {
+                this.classList.toggle('hover');
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>

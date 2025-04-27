@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moon Phase Tracker - Moon Loom</title>
+    <style>
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            background: radial-gradient(circle at center, #0b0c1a, #1a1a2e);
+            color: #e0d7f5;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: rgba(38, 38, 61, 0.9);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 0 20px #7c3aed;
+        }
+
+        h1, h2, h3 {
+            color: #d8b4fe;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 8px #9f7aea;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .moon-phase {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .moon-svg {
+            display: block;
+            margin: 0 auto 1rem auto;
+            width: 120px;
+            height: 120px;
+        }
+
+        .rituals-list, .calendar-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        .rituals-list li, .calendar-list li {
+            background: #5b4b8a;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #7c3aed;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #c4b5fd;
+            text-align: center;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+            font-family: inherit;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 0 5px #7c3aed;
+            background: #3b2a6d;
+            color: #e0d7f5;
+            resize: vertical;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            background: #9f7aea;
+            color: #1a1a2e;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #9f7aea;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, button:focus {
+            background: #7c3aed;
+            color: #fff;
+            outline: none;
+        }
+
+        #personalized-rituals {
+            background: #5b4b8a;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #7c3aed;
+            min-height: 80px;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #d8b4fe;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main class="container" role="main" aria-labelledby="page-title">
+        <h1 id="page-title">Moon Phase Tracker</h1>
+
+        <section class="section" aria-labelledby="current-moon-phase-title">
+            <h2 id="current-moon-phase-title">Current Moon Phase</h2>
+            <svg class="moon-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                <circle cx="50" cy="50" r="45" fill="#ddd" />
+                <circle id="moon-shadow" cx="50" cy="50" r="45" fill="#1a1a2e" />
+            </svg>
+            <div class="moon-phase" id="moon-phase-name" aria-live="polite" aria-atomic="true">Calculating...</div>
+        </section>
+
+        <section class="section" aria-labelledby="moon-rituals-title">
+            <h2 id="moon-rituals-title">Moon Rituals</h2>
+            <ul class="rituals-list" id="rituals-list">
+                <!-- Rituals will be populated here -->
+            </ul>
+        </section>
+
+        <section class="section" aria-labelledby="lunar-calendar-title">
+            <h2 id="lunar-calendar-title">Lunar Calendar</h2>
+            <ul class="calendar-list" id="calendar-list">
+                <li>April 8, 2024 - Full Moon</li>
+                <li>April 22, 2024 - New Moon</li>
+                <li>May 7, 2024 - Full Moon</li>
+                <li>May 21, 2024 - New Moon</li>
+                <li>June 5, 2024 - Full Moon</li>
+                <li>June 20, 2024 - New Moon</li>
+                <li>July 5, 2024 - Full Moon</li>
+                <li>July 19, 2024 - New Moon</li>
+            </ul>
+        </section>
+
+        <section class="section" aria-labelledby="personalized-rituals-title">
+            <h2 id="personalized-rituals-title">Personalized Moon Rituals</h2>
+            <label for="user-goals">Enter your goals or wishes:</label>
+            <textarea id="user-goals" rows="3" placeholder="Write your goals or wishes here..."></textarea>
+            <button id="suggest-rituals-btn">Suggest Rituals</button>
+            <div id="personalized-rituals" aria-live="polite" aria-atomic="true" tabindex="0">
+                Enter your goals and click "Suggest Rituals" to receive personalized suggestions.
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (() => {
+            const moonPhaseName = document.getElementById('moon-phase-name');
+            const moonShadow = document.getElementById('moon-shadow');
+            const ritualsList = document.getElementById('rituals-list');
+            const suggestBtn = document.getElementById('suggest-rituals-btn');
+            const userGoalsInput = document.getElementById('user-goals');
+            const personalizedRitualsDiv = document.getElementById('personalized-rituals');
+
+            // Moon phase names and rituals
+            const moonPhases = [
+                { name: "New Moon", rituals: ["Set intentions for new beginnings", "Meditate on your goals", "Cleanse your space"] },
+                { name: "Waxing Crescent", rituals: ["Focus on growth and progress", "Visualize success", "Journal your aspirations"] },
+                { name: "First Quarter", rituals: ["Overcome obstacles", "Take decisive action", "Seek support from others"] },
+                { name: "Waxing Gibbous", rituals: ["Refine your plans", "Practice patience", "Stay motivated"] },
+                { name: "Full Moon", rituals: ["Celebrate achievements", "Release negativity", "Perform gratitude rituals"] },
+                { name: "Waning Gibbous", rituals: ["Reflect on lessons learned", "Share your wisdom", "Practice forgiveness"] },
+                { name: "Last Quarter", rituals: ["Let go of what no longer serves you", "Simplify your life", "Prepare for rest"] },
+                { name: "Waning Crescent", rituals: ["Rest and recharge", "Dream journaling", "Plan for the next cycle"] }
+            ];
+
+            // Calculate moon phase index based on date
+            function getMoonPhase(date) {
+                // Algorithm based on simplified moon phase calculation
+                const lp = 2551443; // lunar period in seconds
+                const newMoon = new Date(1970, 0, 7, 20, 35, 0); // known new moon date
+                const phase = ((date.getTime() - newMoon.getTime()) / 1000) % lp;
+                const phaseIndex = Math.floor((phase / lp) * 8);
+                return phaseIndex;
+            }
+
+            // Update moon phase display
+            function updateMoonPhase() {
+                const now = new Date();
+                const phaseIndex = getMoonPhase(now);
+                const phase = moonPhases[phaseIndex];
+                moonPhaseName.textContent = phase.name;
+
+                // Update moon shadow shape (simplified)
+                // For demonstration, we adjust the cx of the shadow circle to simulate phases
+                const shadowCx = 50 + (phaseIndex - 4) * 10; // shift shadow left/right
+                moonShadow.setAttribute('cx', shadowCx);
+                
+                // Update rituals list
+                ritualsList.innerHTML = '';
+                phase.rituals.forEach(ritual => {
+                    const li = document.createElement('li');
+                    li.textContent = ritual;
+                    ritualsList.appendChild(li);
+                });
+            }
+
+            // Suggest personalized rituals based on moon phase and user goals
+            function suggestRituals() {
+                const goals = userGoalsInput.value.trim();
+                if (!goals) {
+                    personalizedRitualsDiv.textContent = "Please enter your goals or wishes to receive personalized rituals.";
+                    return;
+                }
+                const phaseIndex = getMoonPhase(new Date());
+                const phase = moonPhases[phaseIndex];
+                let suggestions = `Based on the current moon phase (${phase.name}), consider these rituals:\n\n`;
+                suggestions += phase.rituals.map(r => `- ${r}`).join('\n');
+                suggestions += `\n\nFocus your intentions on: "${goals}"`;
+                personalizedRitualsDiv.textContent = suggestions;
+            }
+
+            // Initialize
+            updateMoonPhase();
+            setInterval(updateMoonPhase, 60 * 1000); // update every minute
+
+            suggestBtn.addEventListener('click', suggestRituals);
+        })();
+    </script>
+</body>
+</html>

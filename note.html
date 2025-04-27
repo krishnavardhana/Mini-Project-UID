@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Magical Diary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: url('https://example.com/lilac-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+      color: #5c5470;
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .diary-entry textarea {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      font-size: 1rem;
+      resize: none;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s;
+    }
+
+    .diary-entry textarea:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(100, 100, 255, 0.3);
+    }
+
+    #imageInput {
+      margin-top: 15px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(102, 166, 255, 0.4);
+    }
+
+    .entry {
+      background: #ffffff;
+      border-left: 5px solid #66a6ff;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+      animation: slideIn 0.6s ease;
+    }
+
+    .entry img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+      max-height: 300px;
+      object-fit: cover;
+    }
+
+    .edit-btn, .delete-btn {
+      display: inline-block;
+      margin-top: 10px;
+      margin-right: 15px;
+      color: #007BFF;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .edit-btn:hover, .delete-btn:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Diary</h1>
+    <div class="diary-entry">
+      <textarea id="diaryText" placeholder="Start writing your thoughts..."></textarea>
+      <input type="file" id="imageInput" accept="image/*">
+      <button id="addEntryBtn">Add Entry</button>
+    </div>
+    <div id="entriesContainer"></div>
+  </div>
+
+  <script>
+    const addEntryBtn = document.getElementById('addEntryBtn');
+    const entriesContainer = document.getElementById('entriesContainer');
+    addEntryBtn.addEventListener('click', () => {
+      const text = document.getElementById('diaryText').value.trim();
+      const imageFile = document.getElementById('imageInput').files[0];
+
+      if (!text) {
+        alert("Please write something before adding.");
+        return;
+      }
+
+      const entry = document.createElement('div');
+      entry.className = 'entry';
+
+      const paragraph = document.createElement('p');
+      paragraph.textContent = text;
+      entry.appendChild(paragraph);
+
+      if (imageFile) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(imageFile);
+        entry.appendChild(img);
+      }
+
+      const editBtn = document.createElement('span');
+      editBtn.className = 'edit-btn';
+      editBtn.textContent = 'Edit';
+      editBtn.onclick = () => {
+        const updatedText = prompt("Edit your diary entry:", paragraph.textContent);
+        if (updatedText !== null) {
+          paragraph.textContent = updatedText;
+        }
+      };
+
+      const editImageBtn = document.createElement('span');
+      editImageBtn.className = 'edit-btn';
+      editImageBtn.textContent = 'Edit Image';
+      editImageBtn.onclick = () => {
+        const newImageFile = document.createElement('input');
+        newImageFile.type = 'file';
+        newImageFile.accept = 'image/*';
+        newImageFile.onchange = () => {
+          const newImg = document.createElement('img');
+          newImg.src = URL.createObjectURL(newImageFile.files[0]);
+          entry.replaceChild(newImg, img);
+        };
+        newImageFile.click();
+      };
+
+      const deleteBtn = document.createElement('span');
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.onclick = () => {
+        entry.classList.add('fade-out');
+        setTimeout(() => entry.remove(), 300);
+      };
+
+      entry.appendChild(editBtn);
+      entry.appendChild(editImageBtn);
+      entry.appendChild(deleteBtn);
+      entriesContainer.prepend(entry);
+
+      document.getElementById('diaryText').value = '';
+      document.getElementById('imageInput').value = '';
+    });
+  </script>
+</body>
+</html>

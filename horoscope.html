@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Personalized Horoscope</title>
+    <style>
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #f0e6f6;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: rgba(34, 34, 59, 0.85);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            color: #d8b4fe;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 8px #9f7aea;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #c4b5fd;
+        }
+
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: none;
+            background: #3b3a5a;
+            color: #e0d7f5;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 0 5px #6b46c1;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        select:hover, select:focus {
+            background: #5a4dbf;
+            outline: none;
+        }
+
+        button {
+            background: #9f7aea;
+            color: #1a1a2e;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #9f7aea;
+            transition: background-color 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        button:hover, button:focus {
+            background: #7c3aed;
+            color: #fff;
+            outline: none;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .output {
+            background: #2a2a4d;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #6b46c1;
+            min-height: 100px;
+            white-space: pre-wrap;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .compatibility-selectors {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .compatibility-selectors > div {
+            flex: 1 1 45%;
+            min-width: 150px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #a78bfa;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <main class="container" role="main" aria-labelledby="page-title">
+        <h1 id="page-title">Moon Loom - Personalized Horoscope</h1>
+
+        <section class="section" aria-labelledby="zodiac-selector-title">
+            <h2 id="zodiac-selector-title">Select Your Zodiac Sign</h2>
+            <label for="zodiac-sign">Zodiac Sign</label>
+            <select id="zodiac-sign" aria-describedby="horoscope-output">
+                <option value="" disabled selected>Select your sign</option>
+                <option value="aries">Aries ♈</option>
+                <option value="taurus">Taurus ♉</option>
+                <option value="gemini">Gemini ♊</option>
+                <option value="cancer">Cancer ♋</option>
+                <option value="leo">Leo ♌</option>
+                <option value="virgo">Virgo ♍</option>
+                <option value="libra">Libra ♎</option>
+                <option value="scorpio">Scorpio ♏</option>
+                <option value="sagittarius">Sagittarius ♐</option>
+                <option value="capricorn">Capricorn ♑</option>
+                <option value="aquarius">Aquarius ♒</option>
+                <option value="pisces">Pisces ♓</option>
+            </select>
+
+            <label for="horoscope-period">Horoscope Period</label>
+            <select id="horoscope-period" aria-describedby="horoscope-output">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+
+            <div id="horoscope-output" class="output" tabindex="0" aria-live="polite" aria-atomic="true">
+                Please select your zodiac sign and period to see your horoscope.
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="transits-title">
+            <h2 id="transits-title">Astrological Transits</h2>
+            <div id="transits-output" class="output" tabindex="0" aria-live="polite" aria-atomic="true">
+                The current planetary positions influence your life in mysterious ways. Explore the energies and align yourself with the cosmos.
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="compatibility-title">
+            <h2 id="compatibility-title">Compatibility Chart</h2>
+            <div class="compatibility-selectors">
+                <div>
+                    <label for="compat-sign-1">Your Sign</label>
+                    <select id="compat-sign-1">
+                        <option value="" disabled selected>Select your sign</option>
+                        <option value="aries">Aries ♈</option>
+                        <option value="taurus">Taurus ♉</option>
+                        <option value="gemini">Gemini ♊</option>
+                        <option value="cancer">Cancer ♋</option>
+                        <option value="leo">Leo ♌</option>
+                        <option value="virgo">Virgo ♍</option>
+                        <option value="libra">Libra ♎</option>
+                        <option value="scorpio">Scorpio ♏</option>
+                        <option value="sagittarius">Sagittarius ♐</option>
+                        <option value="capricorn">Capricorn ♑</option>
+                        <option value="aquarius">Aquarius ♒</option>
+                        <option value="pisces">Pisces ♓</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="compat-sign-2">Partner's Sign</label>
+                    <select id="compat-sign-2">
+                        <option value="" disabled selected>Select partner's sign</option>
+                        <option value="aries">Aries ♈</option>
+                        <option value="taurus">Taurus ♉</option>
+                        <option value="gemini">Gemini ♊</option>
+                        <option value="cancer">Cancer ♋</option>
+                        <option value="leo">Leo ♌</option>
+                        <option value="virgo">Virgo ♍</option>
+                        <option value="libra">Libra ♎</option>
+                        <option value="scorpio">Scorpio ♏</option>
+                        <option value="sagittarius">Sagittarius ♐</option>
+                        <option value="capricorn">Capricorn ♑</option>
+                        <option value="aquarius">Aquarius ♒</option>
+                        <option value="pisces">Pisces ♓</option>
+                    </select>
+                </div>
+            </div>
+            <button id="check-compatibility-btn" aria-describedby="compatibility-result">Check Compatibility</button>
+            <div id="compatibility-result" class="output" tabindex="0" aria-live="polite" aria-atomic="true" style="margin-top:1rem;">
+                Select two signs and click "Check Compatibility" to see the result.
+            </div>
+        </section>
+    </main>
+
+
+    <script>
+        (() => {
+            const zodiacSignSelect = document.getElementById('zodiac-sign');
+            const horoscopePeriodSelect = document.getElementById('horoscope-period');
+            const horoscopeOutput = document.getElementById('horoscope-output');
+            const transitsOutput = document.getElementById('transits-output');
+            const compatSign1 = document.getElementById('compat-sign-1');
+            const compatSign2 = document.getElementById('compat-sign-2');
+            const checkCompatBtn = document.getElementById('check-compatibility-btn');
+            const compatibilityResult = document.getElementById('compatibility-result');
+
+            // Sample horoscope data
+            const horoscopes = {
+                aries: {
+                    daily: "Today is a day to take bold steps. Your energy is high, and new opportunities await.",
+                    weekly: "This week, focus on your relationships. Communication will bring clarity and growth.",
+                    monthly: "This month brings transformation. Embrace change and trust your instincts."
+                },
+                taurus: {
+                    daily: "Patience is your ally today. Take time to appreciate the small joys.",
+                    weekly: "Financial opportunities arise this week. Stay grounded and plan carefully.",
+                    monthly: "A month of stability and growth. Focus on your personal goals."
+                },
+                gemini: {
+                    daily: "Your curiosity leads you to exciting discoveries. Stay open-minded.",
+                    weekly: "Social connections deepen this week. Engage with your community.",
+                    monthly: "A month of learning and exploration. Embrace new ideas."
+                },
+                cancer: {
+                    daily: "Emotions run high today. Take time for self-care and reflection.",
+                    weekly: "Family matters come to the forefront. Nurture your close relationships.",
+                    monthly: "A month of emotional growth. Trust your intuition."
+                },
+                leo: {
+                    daily: "Your confidence shines bright today. Take the lead in your projects.",
+                    weekly: "Creative energy flows this week. Express yourself freely.",
+                    monthly: "A month of recognition and achievement. Celebrate your successes."
+                },
+                virgo: {
+                    daily: "Focus on details today. Your precision will pay off.",
+                    weekly: "Health and wellness are highlighted. Prioritize self-care.",
+                    monthly: "A month of organization and planning. Set clear goals."
+                },
+                libra: {
+                    daily: "Seek balance in your interactions today. Diplomacy is key.",
+                    weekly: "Partnerships strengthen this week. Collaborate for success.",
+                    monthly: "A month of harmony and growth. Foster meaningful connections."
+                },
+                scorpio: {
+                    daily: "Your passion fuels your actions today. Channel it wisely.",
+                    weekly: "Secrets may surface this week. Stay grounded and honest.",
+                    monthly: "A month of transformation. Let go of what no longer serves you."
+                },
+                sagittarius: {
+                    daily: "Adventure calls today. Embrace spontaneity and new experiences.",
+                    weekly: "Learning opportunities abound. Expand your horizons.",
+                    monthly: "A month of exploration and freedom. Follow your dreams."
+                },
+                capricorn: {
+                    daily: "Discipline leads to progress today. Stay focused on your goals.",
+                    weekly: "Career matters take center stage. Plan your next steps.",
+                    monthly: "A month of achievement and recognition. Keep pushing forward."
+                },
+                aquarius: {
+                    daily: "Innovative ideas flow freely today. Share your vision.",
+                    weekly: "Community involvement grows. Connect with like-minded people.",
+                    monthly: "A month of change and progress. Embrace new possibilities."
+                },
+                pisces: {
+                    daily: "Creativity and intuition guide you today. Trust your feelings.",
+                    weekly: "Spiritual growth is highlighted. Take time for reflection.",
+                    monthly: "A month of compassion and healing. Nurture yourself and others."
+                }
+            };
+
+            // Sample astrological transits (static example)
+            const transits = `
+- Moon in Cancer: Heightened emotions and intuition.
+- Mercury Retrograde: Review and reflect before making decisions.
+- Venus in Leo: Passion and creativity are amplified.
+- Mars in Virgo: Focused energy on details and tasks.
+`;
+
+            // Sample compatibility data (simplified)
+            const compatibilityChart = {
+                aries: { leo: "High compatibility: Both energetic and adventurous.", sagittarius: "Great match: Shared love for freedom and excitement.", taurus: "Challenging: Different paces and priorities." },
+                taurus: { virgo: "Strong compatibility: Practical and grounded.", capricorn: "Excellent match: Shared values and goals.", aries: "Challenging: Different approaches to life." },
+                gemini: { libra: "High compatibility: Intellectual and social.", aquarius: "Great match: Innovative and free-spirited.", cancer: "Challenging: Emotional differences." },
+                cancer: { scorpio: "Strong compatibility: Deep emotional connection.", pisces: "Excellent match: Compassionate and intuitive.", gemini: "Challenging: Different communication styles." },
+                leo: { aries: "High compatibility: Energetic and passionate.", sagittarius: "Great match: Optimistic and adventurous.", virgo: "Challenging: Different priorities." },
+                virgo: { taurus: "Strong compatibility: Practical and reliable.", capricorn: "Excellent match: Ambitious and disciplined.", leo: "Challenging: Different outlooks." },
+                libra: { gemini: "High compatibility: Social and communicative.", aquarius: "Great match: Progressive and open-minded.", scorpio: "Challenging: Intense emotions." },
+                scorpio: { cancer: "Strong compatibility: Emotional depth.", pisces: "Excellent match: Intuitive and supportive.", libra: "Challenging: Different emotional needs." },
+                sagittarius: { aries: "High compatibility: Energetic and adventurous.", leo: "Great match: Optimistic and fun-loving.", capricorn: "Challenging: Different life goals." },
+                capricorn: { taurus: "Strong compatibility: Grounded and practical.", virgo: "Excellent match: Hardworking and focused.", sagittarius: "Challenging: Different priorities." },
+                aquarius: { gemini: "High compatibility: Intellectual and innovative.", libra: "Great match: Social and fair-minded.", pisces: "Challenging: Emotional differences." },
+                pisces: { cancer: "Strong compatibility: Compassionate and intuitive.", scorpio: "Excellent match: Deep emotional bond.", aquarius: "Challenging: Different communication styles." }
+            };
+
+            // Update horoscope display
+            function updateHoroscope() {
+                const sign = zodiacSignSelect.value;
+                const period = horoscopePeriodSelect.value;
+                if (!sign) {
+                    horoscopeOutput.textContent = "Please select your zodiac sign and period to see your horoscope.";
+                    return;
+                }
+                const signHoroscopes = horoscopes[sign];
+                if (!signHoroscopes) {
+                    horoscopeOutput.textContent = "Horoscope data not available.";
+                    return;
+                }
+                horoscopeOutput.textContent = signHoroscopes[period] || "Horoscope data not available for this period.";
+            }
+
+            // Display astrological transits
+            function displayTransits() {
+                transitsOutput.textContent = transits.trim();
+            }
+
+            // Check compatibility
+            function checkCompatibility() {
+                const sign1 = compatSign1.value;
+                const sign2 = compatSign2.value;
+                if (!sign1 || !sign2) {
+                    compatibilityResult.textContent = "Please select both zodiac signs to check compatibility.";
+                    return;
+                }
+                if (sign1 === sign2) {
+                    compatibilityResult.textContent = "Same signs can have a strong connection!";
+                    return;
+                }
+                const compatForSign1 = compatibilityChart[sign1] || {};
+                const result = compatForSign1[sign2] || "Compatibility data not available for this pair.";
+                compatibilityResult.textContent = result;
+            }
+
+            // Event listeners
+            zodiacSignSelect.addEventListener('change', updateHoroscope);
+            horoscopePeriodSelect.addEventListener('change', updateHoroscope);
+            checkCompatBtn.addEventListener('click', checkCompatibility);
+
+            // Initialize
+            displayTransits();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Magical Recipes - Moon Loom</title>
+    <style>
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #2c003e, #5a189a);
+            color: #f3e8ff;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            background: rgba(58, 24, 97, 0.9);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 0 20px #9d4edd;
+        }
+
+        h1, h2, h3 {
+            color: #d8b4fe;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 8px #9f7aea;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        ul li {
+            background: #7b2ff7;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #9d4edd;
+            position: relative;
+        }
+
+        ul li a {
+            color: #f3e8ff;
+            text-decoration: underline;
+        }
+
+        ul li a:hover, ul li a:focus {
+            color: #d8b4fe;
+            outline: none;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+            font-family: inherit;
+            box-shadow: inset 0 0 5px #9d4edd;
+            background: #4c1d95;
+            color: #f3e8ff;
+            resize: vertical;
+        }
+
+        button {
+            background: #9d4edd;
+            color: #1a1a2e;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #9d4edd;
+            transition: background-color 0.3s ease;
+            align-self: flex-start;
+        }
+
+        button:hover, button:focus {
+            background: #7b2ff7;
+            color: #fff;
+            outline: none;
+        }
+
+        #user-submissions {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #user-submissions h3 {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        #user-submissions ul {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #user-submissions ul li {
+            background: #6a0dad;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px #9d4edd;
+            white-space: pre-wrap;
+        }
+        .edit-btn, .delete-btn {
+            background-color: #6b46c1;
+            color: #f3e8ff;
+            border: none;
+            padding: 0.3rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 0 5px #9d4edd;
+            margin-right: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn:hover, .edit-btn:focus {
+            background-color: #553c9a;
+            outline: none;
+        }
+
+        .delete-btn {
+            background-color: #9d2f2f;
+        }
+
+        .delete-btn:hover, .delete-btn:focus {
+            background-color: #7a2424;
+            outline: none;
+        }
+
+        .button-group {
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <main class="container" role="main" aria-labelledby="page-title">
+        <h1 id="page-title">Magical Recipes</h1>
+
+        <section aria-labelledby="potion-recipes-title">
+            <h2 id="potion-recipes-title">Potion Recipes</h2>
+            <ul>
+                <li><strong>Moonlight Elixir:</strong> Mix chamomile tea, lavender, and a drop of honey. Brew under the full moon for calm and clarity.</li>
+                <li><strong>Starlight Brew:</strong> Blend rose petals, mint, and a pinch of cinnamon. Sip during waxing moon phases for energy and focus.</li>
+                <li><strong>Sunrise Serenity:</strong> Combine lemon balm, ginger, and a touch of turmeric. Perfect for morning rituals to boost vitality.</li>
+                <li><strong>Twilight Tonic:</strong> Brew valerian root, passionflower, and chamomile for restful sleep.</li>
+                <li><strong>Celestial Calm:</strong> Brew lavender, lemon balm, and oat straw for relaxation and stress relief.</li>
+                <li><strong>Dragon's Breath:</strong> Mix cayenne pepper, ginger, and honey for a warming, invigorating potion.</li>
+                <li><strong>Fairy Dew:</strong> Blend rose water, mint, and a hint of vanilla for a refreshing and uplifting elixir.</li>
+                <li><strong>Enchanted Forest Brew:</strong> Combine pine needles, juniper berries, and spruce tips for grounding and clarity.</li>
+                <li><strong>Witch's Remedy:</strong> Brew elderberry, echinacea, and ginger for immune support.</li>
+                <li><strong>Moonbeam Mist:</strong> Mix chamomile, rose petals, and a drop of lavender oil for peaceful dreams.</li>
+                <li><strong>Sunset Glow:</strong> Brew hibiscus, orange peel, and cinnamon for a vibrant, antioxidant-rich potion.</li>
+                <li><strong>Starfire Elixir:</strong> Blend ginseng, honey, and lemon for energy and vitality.</li>
+                <li><strong>Spirit Soother:</strong> Brew passionflower, chamomile, and lemon balm for anxiety relief.</li>
+                <li><strong>Dream Weaver:</strong> Mix mugwort, lavender, and valerian root to enhance dream recall.</li>
+                <li><strong>Glow Nectar:</strong> Combine honey, turmeric, and black pepper for skin health and glow.</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="spell-recipes-title">
+            <h2 id="spell-recipes-title">Spell Recipes</h2>
+            <ul>
+                <li><strong>Affirmation of Confidence:</strong> Repeat daily: "I am strong, capable, and radiant."</li>
+                <li><strong>Protection Charm:</strong> Light a white candle and visualize a protective shield surrounding you.</li>
+                <li><strong>Gratitude Glow:</strong> Light a yellow candle and say: "I attract positivity and abundance."</li>
+                <li><strong>Focus Flame:</strong> Burn rosemary and sage while meditating to enhance concentration.</li>
+                <li><strong>Moonlight Manifestation:</strong> Write your goals on paper and burn under the new moon for manifestation power.</li>
+                <li><strong>Healing Hands:</strong> Visualize healing energy flowing from your hands to yourself or others.</li>
+                <li><strong>Clarity Candle:</strong> Light a blue candle and meditate to clear mental fog.</li>
+                <li><strong>Luck Charm:</strong> Carry a small pouch of basil and cinnamon for good fortune.</li>
+                <li><strong>Calm Waters:</strong> Burn lavender and sandalwood to soothe emotions.</li>
+                <li><strong>Energy Shield:</strong> Visualize a glowing shield of light protecting you from negativity.</li>
+                <li><strong>Spirit Guide Call:</strong> Light a purple candle and call upon your spirit guides for guidance.</li>
+                <li><strong>Harmony Chant:</strong> Chant "Om Shanti" to bring peace and balance.</li>
+                <li><strong>Firestarter Spell:</strong> Light a red candle and focus on igniting your passion and motivation.</li>
+                <li><strong>Moonbeam Blessing:</strong> Stand under moonlight and silently send blessings to yourself and others.</li>
+                <li><strong>Dreamcatcher Charm:</strong> Hang a dreamcatcher above your bed to filter negative dreams.</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="crafting-tutorials-title">
+            <h2 id="crafting-tutorials-title">Crafting Tutorials</h2>
+            <ul>
+                <li><strong>DIY Dreamcatcher:</strong> Use a hoop, string, feathers, and beads to create a protective dreamcatcher.</li>
+                <li><strong>Crystal Charging:</strong> Place crystals in moonlight overnight to cleanse and energize them.</li>
+                <li><strong>Herbal Candle Making:</strong> Create candles infused with lavender and rosemary for relaxation.</li>
+                <li><strong>Moon Water:</strong> Collect water under the full moon and use it for cleansing rituals.</li>
+                <li><strong>Amulet Crafting:</strong> Create protective amulets using stones, herbs, and symbols.</li>
+                <li><strong>Herbal Sachets:</strong> Sew small sachets filled with herbs for calming or protection.</li>
+                <li><strong>Witch's Broom:</strong> Craft a traditional broom using twigs and natural fibers for cleansing spaces.</li>
+                <li><strong>Spell Jar Creation:</strong> Fill jars with herbs, crystals, and oils for specific intentions.</li>
+                <li><strong>Tarot Cloth Sewing:</strong> Sew a special cloth for tarot readings using symbolic fabrics.</li>
+                <li><strong>Incense Making:</strong> Blend herbs and resins to create custom incense sticks or cones.</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="user-submissions-title">
+            <h2 id="user-submissions-title">Submit Your Magical Recipe or Ritual</h2>
+            <form id="submission-form" novalidate>
+                <label for="submission-type">Type</label>
+                <select id="submission-type" name="submission-type" required aria-required="true">
+                    <option value="" disabled selected>Select type</option>
+                    <option value="potion">Potion Recipe</option>
+                    <option value="spell">Spell Recipe</option>
+                    <option value="crafting">Crafting Tutorial</option>
+                </select>
+
+                <label for="submission-title">Title</label>
+                <input type="text" id="submission-title" name="submission-title" placeholder="Enter title" required aria-required="true" />
+
+                <label for="submission-content">Content</label>
+                <textarea id="submission-content" name="submission-content" rows="4" placeholder="Describe your recipe or ritual..." required aria-required="true"></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <section id="user-submissions" aria-labelledby="user-submissions-list-title">
+            <h3 id="user-submissions-list-title">User Submissions</h3>
+            <ul id="submissions-list">
+                <!-- User submissions will appear here -->
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        (() => {
+            const form = document.getElementById('submission-form');
+            const typeSelect = document.getElementById('submission-type');
+            const titleInput = document.getElementById('submission-title');
+            const contentInput = document.getElementById('submission-content');
+            const submissionsList = document.getElementById('submissions-list');
+
+            // Load submissions from localStorage
+            const loadSubmissions = () => {
+                const submissions = JSON.parse(localStorage.getItem('magicalSubmissions')) || [];
+                renderSubmissions(submissions);
+            };
+
+            // Save submissions to localStorage
+            const saveSubmissions = (submissions) => {
+                localStorage.setItem('magicalSubmissions', JSON.stringify(submissions));
+            };
+
+            // Render submissions list
+            const renderSubmissions = (submissions) => {
+                submissionsList.innerHTML = '';
+                if (submissions.length === 0) {
+                    submissionsList.innerHTML = '<li>No submissions yet.</li>';
+                    return;
+                }
+            submissions.forEach((sub, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <strong>${sub.type.charAt(0).toUpperCase() + sub.type.slice(1)}: ${sub.title}</strong><br>
+                    <div class="content">${sub.content}</div>
+                    <div class="button-group">
+                        <button class="edit-btn" data-index="${index}" aria-label="Edit submission titled ${sub.title}">Edit</button>
+                        <button class="delete-btn" data-index="${index}" aria-label="Delete submission titled ${sub.title}">Delete</button>
+                    </div>
+                `;
+                submissionsList.appendChild(li);
+            });
+
+                // Attach event listeners for edit and delete buttons
+                const editButtons = submissionsList.querySelectorAll('.edit-btn');
+                const deleteButtons = submissionsList.querySelectorAll('.delete-btn');
+
+                editButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const idx = btn.getAttribute('data-index');
+                        startEditSubmission(idx);
+                    });
+                });
+
+                deleteButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const idx = btn.getAttribute('data-index');
+                        deleteSubmission(idx);
+                    });
+                });
+            };
+
+            // Handle form submission
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const type = typeSelect.value;
+                const title = titleInput.value.trim();
+                const content = contentInput.value.trim();
+
+                if (!type || !title || !content) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+
+                if (form.dataset.editIndex !== undefined) {
+                    // Editing existing submission
+                    const editIndex = parseInt(form.dataset.editIndex, 10);
+                    const submissions = JSON.parse(localStorage.getItem('magicalSubmissions')) || [];
+                    submissions[editIndex] = { type, title, content };
+                    saveSubmissions(submissions);
+                    renderSubmissions(submissions);
+                    form.reset();
+                    delete form.dataset.editIndex;
+                    form.querySelector('button[type="submit"]').textContent = 'Submit';
+                } else {
+                    // Adding new submission
+                    const submissions = JSON.parse(localStorage.getItem('magicalSubmissions')) || [];
+                    submissions.push({ type, title, content });
+                    saveSubmissions(submissions);
+                    renderSubmissions(submissions);
+                    form.reset();
+                }
+            });
+
+            // Start editing a submission
+            function startEditSubmission(index) {
+                const submissions = JSON.parse(localStorage.getItem('magicalSubmissions')) || [];
+                const sub = submissions[index];
+                if (!sub) return;
+                typeSelect.value = sub.type;
+                titleInput.value = sub.title;
+                contentInput.value = sub.content;
+                form.dataset.editIndex = index;
+                form.querySelector('button[type="submit"]').textContent = 'Save Changes';
+                titleInput.focus();
+            }
+
+            // Delete a submission
+            function deleteSubmission(index) {
+                const submissions = JSON.parse(localStorage.getItem('magicalSubmissions')) || [];
+                if (index < 0 || index >= submissions.length) return;
+                if (confirm(`Are you sure you want to delete "${submissions[index].title}"?`)) {
+                    submissions.splice(index, 1);
+                    saveSubmissions(submissions);
+                    renderSubmissions(submissions);
+                    if (form.dataset.editIndex == index) {
+                        form.reset();
+                        delete form.dataset.editIndex;
+                        form.querySelector('button[type="submit"]').textContent = 'Submit';
+                    }
+                }
+            }
+
+            // Initialize
+            loadSubmissions();
+        })();
+    </script>
+</body>
+</html>
