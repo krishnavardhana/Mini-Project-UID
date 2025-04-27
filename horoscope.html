@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Personalized Horoscope</title>
     <style>
-        /* Reset */
+        
         *, *::before, *::after {
             box-sizing: border-box;
         }
@@ -222,7 +222,6 @@
             const checkCompatBtn = document.getElementById('check-compatibility-btn');
             const compatibilityResult = document.getElementById('compatibility-result');
 
-            // Sample horoscope data
             const horoscopes = {
                 aries: {
                     daily: "Today is a day to take bold steps. Your energy is high, and new opportunities await.",
@@ -286,7 +285,6 @@
                 }
             };
 
-            // Sample astrological transits (static example)
             const transits = `
 - Moon in Cancer: Heightened emotions and intuition.
 - Mercury Retrograde: Review and reflect before making decisions.
@@ -294,7 +292,6 @@
 - Mars in Virgo: Focused energy on details and tasks.
 `;
 
-            // Sample compatibility data (simplified)
             const compatibilityChart = {
                 aries: { leo: "High compatibility: Both energetic and adventurous.", sagittarius: "Great match: Shared love for freedom and excitement.", taurus: "Challenging: Different paces and priorities." },
                 taurus: { virgo: "Strong compatibility: Practical and grounded.", capricorn: "Excellent match: Shared values and goals.", aries: "Challenging: Different approaches to life." },
@@ -310,7 +307,6 @@
                 pisces: { cancer: "Strong compatibility: Compassionate and intuitive.", scorpio: "Excellent match: Deep emotional bond.", aquarius: "Challenging: Different communication styles." }
             };
 
-            // Update horoscope display
             function updateHoroscope() {
                 const sign = zodiacSignSelect.value;
                 const period = horoscopePeriodSelect.value;
@@ -326,12 +322,10 @@
                 horoscopeOutput.textContent = signHoroscopes[period] || "Horoscope data not available for this period.";
             }
 
-            // Display astrological transits
             function displayTransits() {
                 transitsOutput.textContent = transits.trim();
             }
 
-            // Check compatibility
             function checkCompatibility() {
                 const sign1 = compatSign1.value;
                 const sign2 = compatSign2.value;
@@ -348,12 +342,10 @@
                 compatibilityResult.textContent = result;
             }
 
-            // Event listeners
             zodiacSignSelect.addEventListener('change', updateHoroscope);
             horoscopePeriodSelect.addEventListener('change', updateHoroscope);
             checkCompatBtn.addEventListener('click', checkCompatibility);
 
-            // Initialize
             displayTransits();
         })();
     </script>
